@@ -30,9 +30,9 @@ def index():
 @app.route('/room',methods=['GET', 'POST'])
 def room():
 	if current_user.is_authenticated:
-                data = db.session.query(FurduModel).filter(FurduModel.name == str(current_user))
+		data = db.session.query(FurduModel).filter(FurduModel.name == str(current_user))
 		return render_template('room.html', title='FurDU Room Counter', roomslist=data)
-                #do more stuff later
+        #do more stuff later
 	else:
 		return redirect(url_for('index'))
 
@@ -48,7 +48,7 @@ def down(roomname):
 	if request.method == "POST":
 		if request.form.get(f"userInput_{roomname}") == "True":
 			room = db.session.query(FurduModel).filter(FurduModel.name == roomname).first()
-			outsInt = room.outs += 1
+			outsInt = room.outs = room.outs + 1
 			regform = FurduModel(name=f'{roomname}', ins=room.ins, outs=outsInt)
 			db.session.delete(room)
 			db.session.commit()
@@ -69,7 +69,7 @@ def up(roomname):
 	if request.method == "POST":
 		if request.form.get(f"userInput_{roomname}") == "True":
 			room = db.session.query(FurduModel).filter(FurduModel.name == roomname).first()
-			insInt = room.ins += 1
+			insInt = room.ins = room.ins + 1
 			regform = FurduModel(name=f'{roomname}', ins=insInt, outs=room.outs)
 			db.session.delete(room)
 			db.session.commit()
