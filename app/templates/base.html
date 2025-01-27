@@ -1,0 +1,92 @@
+<!-- Code @Halen2244 | t.me/Halen2244 | What are you doing in the dev console?!? | 2021/2022/2023 -->
+<!DOCTYPE html>
+<html>
+<head>
+<title>FurDU Room Counter Alpha Version</title>
+  <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script type="text/javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+  <style type="text/css">
+    .jumbotron {
+        background: #532f8c;
+        color: white;
+        padding-bottom: 80px
+    }
+    .jumbotron .btn-primary {
+        background: #845ac7;
+        border-color: #845ac7
+    }
+    .jumbotron .btn-primary:hover {
+        background: #7646c1
+    }
+    .jumbotron p {
+        color: #d9ccee;
+        max-width: 75%;
+        margin: 1em auto 2em
+    }
+    .navbar+.jumbotron {
+        margin-top: -20px
+    }
+    .jumbotron .logo {
+        display: block;
+        background: #b01302;
+        border-radius: 50%;
+        overflow: hidden;
+        width: 389px;
+        height: 100px;
+        margin: auto;
+        border: 2px solid white
+    }
+    .jumbotron .lang-logo img {
+        max-width: 100%
+    }
+	#nav ul {
+    display: inline-block;
+    list-style-type: none;
+	}
+
+
+</style>
+</head>
+<body>
+<center>
+<nav class="navbar navbar-default navbar-static-top navbar-inverse">
+  <div class="container">
+    <ul class="topnav-centered">
+	    <li class="active">
+		<h4>
+		{% if current_user.is_anonymous %}
+		<a href="{{ url_for('index') }}"><span class="glyphicon glyphicon-home"></span> Room Log In </a>
+		</div>
+		{% else %}
+		<span><h5><i><p style="color:white">Welcome, {{ current_user.username }}!</p>
+			
+		<p style="color:grey;">(Last update: 18/02/2023)</p></i></h5></span>
+		
+		<a href="{{ url_for('logout') }}"><span class="glyphicon glyphicon-log-out"></span> Log Out </a>
+		</div>
+		{% endif %}
+		</h4>
+	    </li>
+    </ul>
+  </div>
+</nav>
+</center>
+<center>
+<img src="../static/logo.png">
+</center>
+<hr>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul>
+            {% for message in messages %}
+		<li><p style="color:Red;">{{ message }}</p></li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+
+{% block content %}{% endblock %}
+
+</body>
+</html>
